@@ -1,3 +1,6 @@
 template: |
+  **MCOS** Core application base image. See **README.md**.
+
   ## What's Changed
+
   $CHANGES

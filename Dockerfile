@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/home-assistant/base-python:3.14-alpine3.22-2026.03.1
+ARG BUILD_FROM=ghcr.io/muthur-command/base-python:3.14-alpine3.23-mc_2026.04.0
 ####
 ## Builder stage for ssocr, installs to /opt/ssocr
 FROM ${BUILD_FROM} AS ssocr-builder
@@ -74,7 +74,7 @@ RUN git clone https://github.com/naggety/picotts.git pico \
     && ./autogen.sh \
     && mkdir /opt/picotts \
     # PREFIX needs to stay /usr/local with picotts, \
-    # see 'https://github.com/home-assistant/docker/pull/343#issuecomment-3505870990' \
+    # see historical note in muthur-command/docker (picotts PREFIX /usr/local) \
     && ./configure \
          --disable-static \
          --prefix=/usr/local \
@@ -143,6 +143,7 @@ RUN \
         libpulse \
         libturbojpeg \
         libzbar \
+        libpq \
         mariadb-connector-c \
         net-tools \
         nmap \
@@ -156,8 +157,14 @@ RUN \
 RUN \
     --mount=type=bind,src=./requirements.txt,dst=/tmp/requirements.txt \
     --mount=type=cache,target=/root/.cache/pip,sharing=locked,id=pip-cache-${BUILD_FROM} \
-    pip3 install --only-binary=:all: \
-        -r /tmp/requirements.txt
+    apk add --no-cache --virtual .python-build \
+        build-base \
+        libffi-dev \
+        mariadb-dev \
+        postgresql-dev \
+        zlib-dev \
+    && pip3 install --no-cache-dir -r /tmp/requirements.txt \
+    && apk del .python-build
 
 WORKDIR /usr/src/
 
@@ -181,10 +188,10 @@ COPY --link --from=telldus-builder /opt/telldus/ /usr/local/
 COPY rootfs /
 
 LABEL \
-    io.hass.type="homeassistant-base" \
-    org.opencontainers.image.title="Home Assistant Core baseimage" \
-    org.opencontainers.image.description="Baseimage for Home Assistant Core container/supervisor installation" \
-    org.opencontainers.image.authors="The Home Assistant Authors" \
-    org.opencontainers.image.url="https://www.home-assistant.io/" \
-    org.opencontainers.image.documentation="https://www.home-assistant.io/docs/" \
+    io.mcio.type="muthurcommand-base" \
+    org.opencontainers.image.title="MCOS Core application base image" \
+    org.opencontainers.image.description="Base image for MCOS Core (Supervisor-managed stack)" \
+    org.opencontainers.image.authors="Muthur Command" \
+    org.opencontainers.image.url="https://github.com/muthur-command/docker" \
+    org.opencontainers.image.documentation="https://github.com/muthur-command/docker" \
     org.opencontainers.image.licenses="Apache License 2.0"
