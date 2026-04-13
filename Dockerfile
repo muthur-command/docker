@@ -110,6 +110,7 @@ RUN git clone https://github.com/telldus/telldus \
     && cmake . -DBUILD_LIBTELLDUS-CORE=ON \
         -DBUILD_TDADMIN=OFF -DBUILD_TDTOOL=OFF -DGENERATE_MAN=OFF \
         -DFORCE_COMPILE_FROM_TRUNK=ON \
+        -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
         -DCMAKE_INSTALL_PREFIX:PATH=/opt/telldus \
     && make -j"$(nproc)" \
     && make install
