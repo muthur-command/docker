@@ -2,8 +2,8 @@ name: 'Shellcheck'
 
 on:
   push:
-    branch:
-      - master
+    branches:
+      - mc
   pull_request:  
 
 jobs:

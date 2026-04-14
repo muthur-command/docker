@@ -1,0 +1,26 @@
+# Submits a dependency snapshot to GitHub Dependency Graph (not run by dependabot.yml).
+# Requires: Settings → Code security → Dependency graph enabled for the repository.
+name: Component detection
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - mc
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+  dependency-submission: write
+
+jobs:
+  dependency-submission:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v6.0.2
+
+      - name: Run component detection
+        uses: advanced-security/component-detection-dependency-submission-action@v0.1.1

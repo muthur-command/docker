@@ -2,9 +2,9 @@ name: Build base images
 
 on:
   pull_request:
-    branches: ["main", "master", "mc"]
+    branches: ["mc"]
   push:
-    branches: ["main", "master", "mc"]
+    branches: ["mc"]
     paths:
       - ".github/workflows/builder.yml"
       - "Dockerfile"
