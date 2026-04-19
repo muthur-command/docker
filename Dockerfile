@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/muthur-command/base-python:3.14-alpine3.23-mc_2026.04.0
+ARG BUILD_FROM=ghcr.io/muthur-command/base-python:3.14-alpine3.23-2026.04.1
 ####
 ## Builder stage for ssocr, installs to /opt/ssocr
 FROM ${BUILD_FROM} AS ssocr-builder
@@ -190,8 +190,8 @@ COPY rootfs /
 
 LABEL \
     io.mcio.type="muthurcommand-base" \
-    org.opencontainers.image.title="MCOS Core application base image" \
-    org.opencontainers.image.description="Base image for MCOS Core (Supervisor-managed stack)" \
+    org.opencontainers.image.title="Muthur Command OS application-core base image" \
+    org.opencontainers.image.description="Base image for the Muthur Command OS application core (Supervisor-managed stack)" \
     org.opencontainers.image.authors="Muthur Command" \
     org.opencontainers.image.url="https://github.com/muthur-command/docker" \
     org.opencontainers.image.documentation="https://github.com/muthur-command/docker" \

@@ -43,7 +43,7 @@ jobs:
 
       - name: Get build matrix
         id: matrix
-        uses: muthur-command/builder/actions/prepare-multi-arch-matrix@mc_2026.04.0
+        uses: muthur-command/builder/actions/prepare-multi-arch-matrix@2026.04.1
         with:
           architectures: ${{ env.ARCHITECTURES }}
           image-name: ${{ env.IMAGE_NAME }}
@@ -66,12 +66,12 @@ jobs:
           persist-credentials: false
 
       - name: Build base image
-        uses: muthur-command/builder/actions/build-image@mc_2026.04.0
+        uses: muthur-command/builder/actions/build-image@2026.04.1
         with:
           arch: ${{ matrix.arch }}
           container-registry-password: ${{ secrets.GITHUB_TOKEN }}
           cosign-base-identity: 'https://github.com/muthur-command/docker-base/.*'
-          cosign-base-verify: ghcr.io/muthur-command/base-python:3.14-alpine3.23-mc_2026.04.0
+          cosign-base-verify: ghcr.io/muthur-command/base-python:3.14-alpine3.23-2026.04.1
           image: ${{ matrix.image }}
           image-tags: |
             ${{ needs.init.outputs.version }}
@@ -89,7 +89,7 @@ jobs:
       packages: write
     steps:
       - name: Publish multi-arch manifest
-        uses: muthur-command/builder/actions/publish-multi-arch-manifest@mc_2026.04.0
+        uses: muthur-command/builder/actions/publish-multi-arch-manifest@2026.04.1
         with:
           architectures: ${{ env.ARCHITECTURES }}
           container-registry-password: ${{ secrets.GITHUB_TOKEN }}
