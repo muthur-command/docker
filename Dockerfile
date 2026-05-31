@@ -189,7 +189,7 @@ COPY --link --from=telldus-builder /opt/telldus/ /usr/local/
 COPY rootfs /
 
 LABEL \
-    io.mcio.type="muthurcommand-base" \
+    io.mcos.type="muthurcommand-base" \
     org.opencontainers.image.title="Muthur Command OS application-core base image" \
     org.opencontainers.image.description="Base image for the Muthur Command OS application core (Supervisor-managed stack)" \
     org.opencontainers.image.authors="Muthur Command" \
