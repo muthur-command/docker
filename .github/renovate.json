@@ -11,6 +11,16 @@
       "datasourceTemplate": "docker",
       "packageNameTemplate": "muthur-command/base-python",
       "registryUrlTemplate": "https://ghcr.io"
+    },
+    {
+      "customType": "regex",
+      "fileMatch": ["^\\.github/workflows/builder\\.yml$"],
+      "matchStrings": [
+        "cosign-base-verify: ghcr\\.io/muthur-command/base-python:(?<currentValue>[^\\s]+)"
+      ],
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "muthur-command/base-python",
+      "registryUrlTemplate": "https://ghcr.io"
     }
   ],
   "packageRules": [
